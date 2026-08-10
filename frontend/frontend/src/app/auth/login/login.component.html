@@ -1,0 +1,29 @@
+<div class="login-page">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>{{ pageOptions.title }}</h2>
+
+    <div *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngFor="let field of pageOptions.fields">
+      <label>{{ field.label }}</label>
+      <input
+        [type]="field.type"
+        [formControlName]="field.key"
+        [placeholder]="field.placeholder"
+      />
+    </div>
+
+    <label>Role</label>
+    <select formControlName="role">
+      <option *ngFor="let role of pageOptions.roles" [value]="role.value">
+        {{ role.label }}
+      </option>
+    </select>
+
+    <button type="submit" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Logging in...' : pageOptions.buttonText }}
+    </button>
+  </form>
+</div>
